@@ -1,0 +1,17 @@
+FROM java:7
+
+MAINTAINER Aleksey Mikhailov Aleksey.Mikhailov@icerockdev.com
+
+COPY biserver-ce-6.1.0.1-196.zip biserver.zip
+
+RUN unzip -q -d /opt biserver.zip; \
+    rm -f biserver.zip; \
+    cd /opt/biserver-ce; \
+    chmod +x set-pentaho-env.sh; \
+    chmod +x start-pentaho.sh
+
+WORKDIR /opt/biserver-ce 
+
+EXPOSE 8080
+
+CMD /opt/biserver-ce/start-pentaho-debug.sh && tail /opt/biserver-ce/tomcat/logs/catalina.out

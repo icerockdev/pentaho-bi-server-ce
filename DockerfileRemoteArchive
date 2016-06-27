@@ -1,0 +1,20 @@
+FROM java:7
+
+MAINTAINER Aleksey Mikhailov Aleksey.Mikhailov@icerockdev.com
+
+ENV BISERVER_VERSION 6.1
+ENV BISERVER_TAG 6.1.0.1-196
+
+RUN wget -q -O biserver.zip "http://downloads.sourceforge.net/project/pentaho/Business%20Intelligence%20Server/$BISERVER_VERSION/biserver-ce-$BISERVER_TAG.zip"; \
+
+RUN unzip -q -d /opt biserver.zip; \
+    rm -f biserver.zip; \
+    cd /opt/biserver-ce; \
+    chmod +x set-pentaho-env.sh; \
+    chmod +x start-pentaho.sh
+
+WORKDIR /opt/biserver-ce 
+
+EXPOSE 8080
+
+CMD ["sh", "start-pentaho.sh"]
