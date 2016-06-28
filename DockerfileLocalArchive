@@ -8,10 +8,11 @@ RUN unzip -q -d /opt biserver.zip; \
     rm -f biserver.zip; \
     cd /opt/biserver-ce; \
     chmod +x set-pentaho-env.sh; \
-    chmod +x start-pentaho.sh
+    chmod +x start-pentaho.sh; \
+    rm promptuser.sh
 
 WORKDIR /opt/biserver-ce 
 
 EXPOSE 8080
 
-CMD /opt/biserver-ce/start-pentaho-debug.sh && tail /opt/biserver-ce/tomcat/logs/catalina.out
+CMD ./start-pentaho.sh  && tail -f ./tomcat/logs/catalina.out
